@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class Launcher : MonoBehaviour
 {
+    public static Launcher instance;
+
     [Header("Panels")]
     public GameObject lobbyPanel;
     public GameObject createRoomPanel;
@@ -11,6 +13,7 @@ public class Launcher : MonoBehaviour
 
     private void Start()
     {
+        instance = this;
         Debug.LogWarning("Welcome, " + Photon.Pun.PhotonNetwork.NickName);
     }
 

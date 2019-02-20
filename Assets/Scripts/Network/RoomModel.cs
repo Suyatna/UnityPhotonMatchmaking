@@ -3,15 +3,12 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class CreateRoom : MonoBehaviourPunCallbacks
+public class RoomModel : MonoBehaviourPunCallbacks
 {
     const byte maxPlayere = 4;
 
     string roomName;
     bool isEmpty = true;
-
-    [Header("Scripts")]
-    public GameObject launcher;
 
     private void Start()
     {
@@ -46,15 +43,27 @@ public class CreateRoom : MonoBehaviourPunCallbacks
         }
     }
 
+    public void OnClickFindRoom()
+    {        
+        if (!isEmpty)
+        {
+            PhotonNetwork.JoinRoom(roomName);
+        }
+        else
+        {
+            Debug.LogError("Please write room name.");
+        }
+    }
+
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        Debug.LogError("Failed create room: return code { " + returnCode +" } and message { " + message +" }");
+        Debug.LogError("Failed create room: return code { " + returnCode +" } and message { " + message +" }");        
     }
 
     public override void OnCreatedRoom()
     {
         Debug.LogWarning("Success created room: " + PhotonNetwork.CurrentRoom.Name);
 
-        launcher.GetComponent<Launcher>().RoomPanel();
+        Launcher.instance.RoomPanel();       
     }
 }
