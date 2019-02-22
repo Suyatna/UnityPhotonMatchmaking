@@ -66,4 +66,19 @@ public class RoomModel : MonoBehaviourPunCallbacks
 
         Launcher.instance.RoomPanel();       
     }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("OnJoinedRoom(): " + PhotonNetwork.CurrentRoom.Name);
+
+        Player[] player = PhotonNetwork.PlayerList;
+        for (int i = 0; i < player.Length; i++)
+        {
+            OnPlayerEnteredRoom(player[i]);
+            Debug.Log("Joined: " + player[i].NickName);
+        }
+        
+        Launcher.instance.RoomPanel();
+        RoomManager.instance.UpdatePlayerList();
+    }
 }

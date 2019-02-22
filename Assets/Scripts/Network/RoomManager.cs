@@ -5,29 +5,33 @@ using Photon.Realtime;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
+    public static RoomManager instance;
+
     [Header("Texts")]
     public Text roomName;
     public Text masterPlayer;
+    public Text localPlayer;
+
+    public Text[] playersInRoom;
 
     [Header("Properties")]
     public GameObject readyBtn;
-    bool isReady = false;    
 
-    public Text[] playersInRoom, clientsInRoom;
-    public Text localPlayer;
+    bool isReady = false;
     int countPlayer = 0;
 
     private void Awake()
     {
+        instance = this;
         roomName.text = PhotonNetwork.CurrentRoom.Name;        
         
-        if (!PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
-            localPlayer.text = PhotonNetwork.NickName;
+            masterPlayer.text = PhotonNetwork.MasterClient.NickName + " (master)";
         }
         else
         {
-            masterPlayer.text = PhotonNetwork.MasterClient.NickName;
+            localPlayer.text = PhotonNetwork.NickName;
         }
     }
 
@@ -48,33 +52,23 @@ public class RoomManager : MonoBehaviourPunCallbacks
         isReady = value;
     }
 
-    public override void OnConnected()
+    public void UpdatePlayerList()
     {
-        photonView.RPC("UpdatePlayerLists", RpcTarget.AllBuffered);
-    }    
-
-    public override void OnJoinedRoom()
-    {
-        Player[] player = PhotonNetwork.PlayerList;
-        for (int i = 0; i < player.Length; i++)
-        {
-            OnPlayerEnteredRoom(player[i]);
-            Debug.Log(player[i].NickName);
-        }
-
-        Debug.Log("OnJoinedRoom(): " + PhotonNetwork.CurrentRoom.Name);
-
-        Launcher.instance.RoomPanel();
-
         countPlayer = 0;
         foreach (var players in PhotonNetwork.PlayerListOthers)
         {
-            clientsInRoom[countPlayer].text = players.NickName;
-            Debug.Log("All player: " + players.NickName);
-
+            if (players.NickName == PhotonNetwork.MasterClient.NickName)
+            {
+                playersInRoom[countPlayer].text = players.NickName + " (master)";
+            }
+            else
+            {
+                playersInRoom[countPlayer].text = players.NickName;
+            }
+            
             countPlayer++;
         }
-    }    
+    }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -83,25 +77,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        countPlayer = 0;
-        foreach (var players in PhotonNetwork.PlayerListOthers)
-        {
-            playersInRoom[countPlayer].text = players.NickName;
-            countPlayer++;
-        }
-
         Debug.Log("Player entered room: " + newPlayer);
-    }    
 
-    [PunRPC]
-    void UpdatePlayerLists()
-    {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            for (int i = 1; i < PhotonNetwork.CountOfPlayersInRooms; i++)
-            {
-                playersInRoom[i].text = PhotonNetwork.PlayerList[i].NickName;
-            }
-        }        
-    }
+        UpdatePlayerList();        
+    }       
 }

@@ -1447,16 +1447,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomName: {fileID: 686364401}
   masterPlayer: {fileID: 845833890}
-  readyBtn: {fileID: 1745191140}
+  localPlayer: {fileID: 845833890}
   playersInRoom:
   - {fileID: 944219185}
   - {fileID: 75570858}
   - {fileID: 631829884}
-  clientsInRoom:
-  - {fileID: 845833890}
-  - {fileID: 75570858}
-  - {fileID: 631829884}
-  localPlayer: {fileID: 845833890}
+  readyBtn: {fileID: 1745191140}
 --- !u!1 &769071189
 GameObject:
   m_ObjectHideFlags: 0
