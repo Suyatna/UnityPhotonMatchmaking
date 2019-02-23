@@ -34,5 +34,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - UpdatePlayerLists
   - UpdatePlayerList
+  - RespawnPlayer
+  - AddingMargin
   DisableAutoOpenWizard: 1
   ShowSettings: 0

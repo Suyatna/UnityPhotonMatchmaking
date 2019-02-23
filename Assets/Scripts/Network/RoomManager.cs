@@ -17,8 +17,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [Header("Properties")]
     public GameObject readyBtn;
 
+    [Header("Player prefabs")]
+    public GameObject playerPrefab;
+
     bool isReady = false;
     int countPlayer = 0;
+
+    int posX = 450;
+    int posY = 140;
+    int marginPos = 100;
 
     private void Awake()
     {
@@ -33,6 +40,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             localPlayer.text = PhotonNetwork.NickName;
         }
+
+        var otherPlayer = PhotonNetwork.PlayerListOthers.Length;
+
+        GameObject players = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(posX, posY + (otherPlayer * marginPos), 0), Quaternion.identity, 0) as GameObject;
+        players.transform.SetParent(GameObject.FindGameObjectWithTag("RoomPanel").transform, false);        
     }
 
     private void Update()
@@ -80,5 +92,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Debug.Log("Player entered room: " + newPlayer);
 
         UpdatePlayerList();        
-    }       
+    }
+    
+    [PunRPC]
+    void AddingMargin()
+    {
+        posY -= marginPos;
+        Debug.Log("adding posY: " + posY);
+    }
 }
