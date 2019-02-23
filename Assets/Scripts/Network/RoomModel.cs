@@ -64,9 +64,7 @@ public class RoomModel : MonoBehaviourPunCallbacks
     public void OnClickLeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
-        Launcher.instance.LobbyPanel();
-
-        Debug.LogWarning("OnLeaveRoom(): you're leave room.");
+        Launcher.instance.LobbyPanel();        
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -94,5 +92,10 @@ public class RoomModel : MonoBehaviourPunCallbacks
         
         Launcher.instance.RoomPanel();
         RoomManager.instance.UpdatePlayerList();
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.LogWarning("OnLeftRoom(): you're leave room.");
     }
 }

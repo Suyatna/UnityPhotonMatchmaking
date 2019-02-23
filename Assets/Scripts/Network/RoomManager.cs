@@ -42,9 +42,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
 
         var otherPlayer = PhotonNetwork.PlayerListOthers.Length;
+        Debug.Log("otherPlayer: " + otherPlayer);        
 
-        GameObject players = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(posX, posY + (otherPlayer * marginPos), 0), Quaternion.identity, 0) as GameObject;
-        players.transform.SetParent(GameObject.FindGameObjectWithTag("RoomPanel").transform, false);        
+        PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(posX, posY - (otherPlayer * marginPos), 0), Quaternion.identity, 0);
     }
 
     private void Update()
@@ -93,11 +93,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         UpdatePlayerList();        
     }
-    
-    [PunRPC]
-    void AddingMargin()
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        posY -= marginPos;
-        Debug.Log("adding posY: " + posY);
+        Debug.Log("OnPlayerLeftRoom(): " + otherPlayer);
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        Debug.Log("OnMasterClientSwitched(): " + newMasterClient);
     }
 }

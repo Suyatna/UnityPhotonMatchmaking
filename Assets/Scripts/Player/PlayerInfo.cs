@@ -10,14 +10,8 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            playerName.text = PhotonNetwork.NickName + " (master)";
-            playerName.color = new Color(255, 255, 0);
-        }
-        else
-        {
-            playerName.text = PhotonNetwork.NickName;
-        }        
+        this.transform.SetParent(GameObject.FindGameObjectWithTag("RoomPanel").transform, false);
+
+        playerName.text = this.photonView.Owner.NickName;
     }
 }
