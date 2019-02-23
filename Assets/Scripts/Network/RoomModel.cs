@@ -19,7 +19,8 @@ public class RoomModel : MonoBehaviourPunCallbacks
     {
         if (string.IsNullOrEmpty(value))
         {
-            Debug.Log("Room name is null or empty");            
+            Debug.Log("Room name is null or empty");
+            roomName = value;
             isEmpty = true;
 
             return;
@@ -53,6 +54,19 @@ public class RoomModel : MonoBehaviourPunCallbacks
         {
             Debug.LogError("Please write room name.");
         }
+    }
+
+    public void OnClickBackRoom()
+    {
+        Launcher.instance.LobbyPanel();
+    }
+
+    public void OnClickLeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        Launcher.instance.LobbyPanel();
+
+        Debug.LogWarning("OnLeaveRoom(): you're leave room.");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
