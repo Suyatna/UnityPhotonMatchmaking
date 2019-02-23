@@ -36,5 +36,6 @@ MonoBehaviour:
   - UpdatePlayerList
   - RespawnPlayer
   - AddingMargin
+  - ChangeMasterClient
   DisableAutoOpenWizard: 1
   ShowSettings: 0

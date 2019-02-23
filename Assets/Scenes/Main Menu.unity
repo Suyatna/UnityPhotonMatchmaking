@@ -1638,7 +1638,7 @@ MonoBehaviour:
   - {fileID: 75570858}
   - {fileID: 631829884}
   readyBtn: {fileID: 1745191140}
-  playerPrefab: {fileID: 7742977499897484618, guid: 270cd7c2730a2fc4d8160aea4936c0d4,
+  playerPrefab: {fileID: 7742977499897484618, guid: 930512f79e3e3e14d97feed0922e7442,
     type: 3}
 --- !u!1 &769071189
 GameObject:

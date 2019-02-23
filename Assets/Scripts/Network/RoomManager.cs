@@ -89,18 +89,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        Debug.Log("Player entered room: " + newPlayer);
+        Debug.Log("Player entered room: " + newPlayer.NickName);
 
         UpdatePlayerList();        
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Debug.Log("OnPlayerLeftRoom(): " + otherPlayer);
+        Debug.Log("OnPlayerLeftRoom(): " + otherPlayer.NickName);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        Debug.Log("OnMasterClientSwitched(): " + newMasterClient);
+        Debug.Log("OnMasterClientSwitched(): " + newMasterClient.NickName);    
     }
 }
