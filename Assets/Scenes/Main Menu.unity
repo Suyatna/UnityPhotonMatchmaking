@@ -1638,8 +1638,6 @@ MonoBehaviour:
   - {fileID: 75570858}
   - {fileID: 631829884}
   readyBtn: {fileID: 1745191140}
-  playerPrefab: {fileID: 7742977499897484618, guid: 930512f79e3e3e14d97feed0922e7442,
-    type: 3}
 --- !u!1 &769071189
 GameObject:
   m_ObjectHideFlags: 0
@@ -3518,6 +3516,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61448cc334cf8554cad8ab4bcbbd29a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 7742977499897484618, guid: 930512f79e3e3e14d97feed0922e7442,
+    type: 3}
 --- !u!1 &1717594547
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,8 +7,15 @@ public class RoomModel : MonoBehaviourPunCallbacks
 {
     const byte maxPlayere = 4;
 
+    [Header("Player prefabs")]
+    public GameObject playerPrefab;
+
     string roomName;
     bool isEmpty = true;
+
+    int posX = 450;
+    int posY = 140;
+    int marginPos = 100;
 
     private void Start()
     {
@@ -92,10 +99,15 @@ public class RoomModel : MonoBehaviourPunCallbacks
         
         Launcher.instance.RoomPanel();
         RoomManager.instance.UpdatePlayerList();
+
+        var otherPlayer = PhotonNetwork.PlayerListOthers.Length;
+        Debug.Log("otherPlayer: " + otherPlayer);
+
+        PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(posX, posY - (otherPlayer * marginPos), 0), Quaternion.identity, 0);
     }
 
     public override void OnLeftRoom()
     {
-        Debug.LogWarning("OnLeftRoom(): you're leave room.");
+        Debug.LogWarning("OnLeftRoom(): you're leave room.");               
     }
 }

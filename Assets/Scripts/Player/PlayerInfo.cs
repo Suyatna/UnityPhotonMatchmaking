@@ -10,7 +10,6 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 
     int posX = 450;
     int posY = 140;
-    int marginPos = 100;
 
     private void Awake()
     {

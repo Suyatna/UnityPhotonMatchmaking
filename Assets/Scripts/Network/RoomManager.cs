@@ -15,17 +15,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Text[] playersInRoom;
 
     [Header("Properties")]
-    public GameObject readyBtn;
-
-    [Header("Player prefabs")]
-    public GameObject playerPrefab;
+    public GameObject readyBtn;    
 
     bool isReady = false;
-    int countPlayer = 0;
-
-    int posX = 450;
-    int posY = 140;
-    int marginPos = 100;
+    int countPlayer = 0;    
 
     private void Awake()
     {
@@ -39,12 +32,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         else
         {
             localPlayer.text = PhotonNetwork.NickName;
-        }
-
-        var otherPlayer = PhotonNetwork.PlayerListOthers.Length;
-        Debug.Log("otherPlayer: " + otherPlayer);        
-
-        PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(posX, posY - (otherPlayer * marginPos), 0), Quaternion.identity, 0);
+        }        
     }
 
     private void Update()
